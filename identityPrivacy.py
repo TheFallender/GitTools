@@ -181,8 +181,7 @@ if __name__ == "__main__":
 
     if BULK_RUN:
         print("Bulk run enabled.")
-        # dir_of_repos = input("Input the directory where all the repositories are: ")
-        dir_of_repos = 'gh'
+        dir_of_repos = input("Input the directory where all the repositories are: ")
 
         for repo in os.listdir(dir_of_repos):
             repo_path = os.path.abspath(os.path.join(dir_of_repos, repo))
@@ -195,7 +194,7 @@ if __name__ == "__main__":
                 get_branches_up_to_date()
 
                 # Get the branches
-                branches = subprocess.run(["git", "branch"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True).stdout.split()
+                branches = get_output(["git", "branch"]).splitlines()
 
                 modify_git_identity(repo_path, "--all", OLD_EMAILS, OLD_NAMES, NEW_NAME, NEW_EMAIL)    
             os.chdir(base_cwd)
